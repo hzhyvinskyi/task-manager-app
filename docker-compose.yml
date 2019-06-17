@@ -1,0 +1,32 @@
+version: "3.7"
+
+networks:
+  app_net:
+    driver: bridge
+
+services:
+
+  node:
+    container_name: node
+    build: .
+    ports:
+      - 7000:3000
+    volumes:
+      - ./:/opt/task-manager-app
+    depends_on:
+      - postgres
+    networks:
+      - app_net
+
+  postgres:
+    image: postgres:11-alpine
+    container_name: postgres
+    ports:
+      - 5432:5432
+    restart: always
+    environment:
+      - POSTGRES_DB=appdb
+      - POSTGRES_USER=appuser
+      - POSTGRES_PASSWORD=apppwd
+    volumes:
+      - ./data/postgres:/var/lib/postgresql/data
