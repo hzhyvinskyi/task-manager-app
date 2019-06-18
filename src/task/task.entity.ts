@@ -4,7 +4,7 @@ import { TaskStatus } from "./task-status.enum";
 @Entity('tasks')
 export class Task extends BaseEntity {
   @PrimaryGeneratedColumn()
-  public id: string
+  public id: number
 
   @Column({ type: 'varchar', length: 100 })
   public title: string
